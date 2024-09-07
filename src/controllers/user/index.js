@@ -29,7 +29,7 @@ const authenticateUserController = async (user) => {
 
   const userData = await getUserByEmailRepository(value.email);
 
-  if (!userByEmail || !userByEmail.length) {
+  if (!userData) {
     throw new Error("Usuário não encontrado.");
   }
 
@@ -43,7 +43,7 @@ const authenticateUserController = async (user) => {
 
   userData.token = token;
 
-  return userData;
+  return {auth: true, token: token};
 };
 
 const createUserController = async (user) => {
@@ -96,7 +96,7 @@ const createUserController = async (user) => {
 
   const userByEmail = await getUserByEmailRepository(value.email);
 
-  if (userByEmail && userByEmail.length) {
+  if (userByEmail) {
     throw new Error("Email já cadastrado.");
   }
 
