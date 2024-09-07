@@ -24,6 +24,27 @@ const createUserRepository = async (user) => {
   return await executeQuery(query, values);
 };
 
+const getUserByEmailRepository = async (email) => {
+  const query = `
+    SELECT * FROM authentication_users WHERE email = $1
+  `;
+
+  const values = [email];
+
+  return await executeQuery(query, values);
+}
+
+const getUserByIdRepository = async (id) => {
+  const query = `
+    SELECT * FROM authentication_users WHERE id = $1
+  `;
+
+  const values = [id];
+
+  return await executeQuery(query, values);
+}
+
 module.exports = {
   createUserRepository,
+  getUserByEmailRepository
 };
