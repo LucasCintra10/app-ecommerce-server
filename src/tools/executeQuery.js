@@ -6,8 +6,6 @@ async function executeQuery(query, values) {
         return result;
     } catch (error) {
         throw new Error(error);
-    } finally {
-        await sql.end();
     }
 }
 

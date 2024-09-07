@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const { getUserById } = require("../repositories/user");
+const { getUserByIdRepository } = require("../repositories/user");
 
 async function verifyJWT(req, res, next) {
   const token = req.headers["x-access-token"];
@@ -9,12 +9,13 @@ async function verifyJWT(req, res, next) {
     return res.status(401).json({ auth: false, message: "Token não informado." });
   }
 
-  jwt.verify(token, process.env.SECRET, async (err, decoded) => {
+  jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
     if (err) {
+      console.log(err);
       return res.status(500).json({ auth: false, message: "Falha ao autenticar o token." });
     }
 
-    req.user = await getUserById(decoded.id);
+    req.user = await getUserByIdRepository(decoded.id);
 
     next();
   });
