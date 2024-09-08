@@ -2,8 +2,10 @@ const router = require("express").Router();
 const { verifyJWT } = require("../middleware/ensureAuth");
 
 const userRouter = require("./user");
+const productRouter = require("./product");
 
 router.use("/user", verifyJWT, userRouter);
+router.use("/product", verifyJWT, productRouter);
 
 
 router.post("/register", async (req, res) => {
