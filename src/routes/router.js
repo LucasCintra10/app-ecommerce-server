@@ -3,7 +3,9 @@ const { verifyJWT } = require("../middleware/ensureAuth");
 
 const userRouter = require("./user");
 const productRouter = require("./product");
+const homeRouter = require("./home");
 
+router.use("/home", homeRouter);
 router.use("/user", verifyJWT, userRouter);
 router.use("/product", verifyJWT, productRouter);
 

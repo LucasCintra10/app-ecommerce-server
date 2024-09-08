@@ -60,7 +60,15 @@ const getProductByIdRepository = async (id) => {
 
 const getAllProductsRepository = async () => {
   const query = `
-        SELECT * FROM clients_products
+        SELECT 
+            name,
+            description,
+            stock,
+            image,
+            CAST(value AS FLOAT),
+            active,
+            seller_id
+        FROM clients_products
     `;
 
   const response = await executeQuery(query);
