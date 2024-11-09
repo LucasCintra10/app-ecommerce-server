@@ -29,12 +29,28 @@ const createProductController = async (product, user) => {
       "any.required": "O Status é obrigatório.",
       "boolean.base": "O Status deve ser um booleano.",
     }),
+    image: Joi.string().optional(),
   });
 
   const { error, value } = schema.validate(product);
 
   if (error) {
     throw new Error(error.message);
+  }
+
+  if (product.image) {
+    try {
+      const uploadImage = require("../../tools/uploadImage");
+
+      const imageUrl = await uploadImage(product.image);
+
+      console.log(imageUrl);
+
+      value.image = imageUrl;
+    } catch (error) {
+      console.log(error);
+      throw new Error("Erro ao fazer upload da imagem");
+    }
   }
 
   const { createProductRepository } = require("../../repositories/product");

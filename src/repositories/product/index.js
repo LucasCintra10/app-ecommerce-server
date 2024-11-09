@@ -6,6 +6,7 @@ const createProductRepository = async (product) => {
             clients_products (
                 name,
                 description,
+                image,
                 stock,
                 value,  
                 active,
@@ -16,12 +17,13 @@ const createProductRepository = async (product) => {
                 $3,
                 $4,
                 $5,
-                $6
+                $6,
+                $7
             )
 
     `;
 
-  const values = [product.name, product.description, product.stock, product.value, product.active, product.seller_id];
+  const values = [product.name, product.description, product.image, product.stock, product.value, product.active, product.seller_id];
 
   const response = await executeQuery(query, values);
 
